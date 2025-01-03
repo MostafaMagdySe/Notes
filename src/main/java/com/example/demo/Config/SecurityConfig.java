@@ -30,8 +30,13 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for testing (not recommended in production)
                 .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/register").permitAll() // Allow unauthenticated access to /register
-                .anyRequest().authenticated()) // Require authentication for other endpoints
+                        .requestMatchers(
+                                "/v3/api-docs/**", // OpenAPI documentation
+                                "/swagger-ui/**", // Swagger UI resources
+                                "/swagger-ui.html", // Swagger UI HTML
+                                "/register" // Your public endpoint
+                        ).permitAll() // Allow unauthenticated access to /register
+                        .anyRequest().authenticated()) // Require authentication for other endpoints
                 .httpBasic(Customizer.withDefaults()) // Enable Basic Authentication
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)) // session to maintain the logged-in state
                 .build();
@@ -53,4 +58,4 @@ public class SecurityConfig {
         return provider;
     }
 
-    }
+}
