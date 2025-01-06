@@ -26,6 +26,6 @@ public class Users {
 
     private String phone;
 
-    private int role_id;
+    private Integer role_id;
 
 }
