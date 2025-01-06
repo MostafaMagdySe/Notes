@@ -6,10 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 
 @Data
 @Entity
-
+@DynamicInsert
 public class Roles {
 
     @Id

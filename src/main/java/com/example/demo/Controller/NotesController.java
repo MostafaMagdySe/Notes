@@ -5,6 +5,7 @@ import com.example.demo.DTO.EditNoteRequest;
 import com.example.demo.Entities.Notes;
 import com.example.demo.Repository.NotesRepo;
 import com.example.demo.Services.NotesServices;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class NotesController {
 
     @PostMapping("/note")
 
-    public ResponseEntity createNotes(@RequestBody CreateNoteRequest createNoteRequest) {
+    public ResponseEntity createNotes(@Valid @RequestBody CreateNoteRequest createNoteRequest) {
 
         notesServices.createNote(createNoteRequest);
 
