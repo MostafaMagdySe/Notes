@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,10 +40,15 @@ public class SecurityConfig {
                                 "/swagger-ui/**", // Swagger UI resources
                                 "/swagger-ui.html", // Swagger UI HTML
                                 "/register", // Your public endpoint
-                                "/login"
+                                "/login",
+                                "/ResetPassword",
+                                "/verifyCode",
+                                "/UpdatePassword",
+                                "/quote"
                         ).permitAll() // Allow unauthenticated access to /register
                         .anyRequest().authenticated()) // Require authentication for other endpoints
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // session to maintain the logged-in state
+                .httpBasic(Customizer.withDefaults()) // Enable Basic Authentication
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)) // session to maintain the logged-in state
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
 

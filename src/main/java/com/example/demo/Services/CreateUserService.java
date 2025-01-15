@@ -21,7 +21,7 @@ private final AuthenticationManager authenticationManager;
     private final UserRepo userRepo;
 
 
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
     public CreateUserService(UserRepo userRepo, JWTService jwtService, AuthenticationManager authenticationManager)
     {

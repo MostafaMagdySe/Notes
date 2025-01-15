@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
 //  Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJraWxsIiwiaWF0IjoxNzIzMTgzNzExLCJleHAiOjE3MjMxODM4MTl9.5nf7dRzKRiuGurN2B9dHh_M5xiu73ZzWPr6rbhOTTHs
         String requestURI = request.getRequestURI();
-        if (requestURI.equals("/register") || requestURI.equals("/login")  || requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/v3/api-docs")) {
+        if (requestURI.equals("/register") || requestURI.equals("/quote")|| requestURI.equals("/ResetPassword") || requestURI.equals("/verifyCode") || requestURI.equals("/UpdatePassword") || requestURI.equals("/login")  || requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/v3/api-docs")) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -4,13 +4,18 @@ import com.example.demo.Config.UserRoles;
 import com.example.demo.DTO.CreateNoteRequest;
 import com.example.demo.DTO.EditNoteRequest;
 import com.example.demo.Entities.Notes;
+import com.example.demo.Entities.NotesContent;
 import com.example.demo.Entities.Users;
 import com.example.demo.Repository.NotesRepo;
 import com.example.demo.Repository.UserRepo;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,11 +30,13 @@ public class NotesServices {
         this.notesrepo=notesrepo;
     }
 
+
 //@Transactional(isolation = Isolation.SERIALIZABLE)
     public void createNote(CreateNoteRequest createNoteRequest) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserRoles userRoles = (UserRoles) auth.getPrincipal();
         String username = userRoles.getUsername();
+
        Users user = userRepo.findByusername(username);
 
             Notes notes = new Notes();
@@ -38,8 +45,6 @@ public class NotesServices {
         notes.setUserId(user.getId());
 
             notesrepo.save(notes);
-
-
     }
 
     public  void editNote(int id, EditNoteRequest editNoteRequest) throws Exception {
@@ -50,8 +55,7 @@ public class NotesServices {
         not.setContent(editNoteRequest.getContent());
         notesrepo.save(not);}
         else{
-    throw new Exception("User with id " + id + " not found");
-    }
+    throw new Exception("User with id " + id + " not found");}
 
     }
     public void deleteNote(int id) throws Exception {
@@ -65,6 +69,22 @@ else
     }
    // public Page<Notes> findAll(Pageable pageable) {
       //  return productRepository.findAll(pageable);
+    public List<NotesContent> getAllNotes(int PageNo, int PageSize){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserRoles userRoles = (UserRoles) auth.getPrincipal();
+        String username = userRoles.getUsername();
+
+Pageable pageable =  PageRequest.of(PageNo,PageSize, Sort.by("id"));
+        Users user = userRepo.findByusername(username);
+        if (user == null)
+            throw new RuntimeException("User not found");
+
+        return  notesrepo.findByUserId(user.getId(),pageable);
+
+    }
+
+
+
     }
 
 
