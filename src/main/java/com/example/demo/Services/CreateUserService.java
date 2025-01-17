@@ -10,6 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Data
@@ -30,7 +31,7 @@ private final AuthenticationManager authenticationManager;
     this.authenticationManager=authenticationManager;
 
     }
-
+@Transactional
     public void CreateUser (CreateUserRequest createUserRequest){
         Users user = new Users() ;
         user.setUsername(createUserRequest.getUsername());

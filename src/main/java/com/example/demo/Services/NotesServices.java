@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,7 @@ else
     }
    // public Page<Notes> findAll(Pageable pageable) {
       //  return productRepository.findAll(pageable);
+    @Transactional
     public List<NotesContent> getAllNotes(int PageNo, int PageSize){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserRoles userRoles = (UserRoles) auth.getPrincipal();

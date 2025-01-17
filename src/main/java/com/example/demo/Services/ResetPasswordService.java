@@ -10,6 +10,7 @@ import lombok.Data;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Data
 @Service
@@ -31,6 +32,7 @@ public class ResetPasswordService {
     }
 
     //@EventListener(ApplicationReadyEvent.class)
+    @Transactional
     public void sendmail(ResetPasswordRequest resetPasswordRequest){
         resetpassword resetPassword = resetPasswordRepo.findByemail(resetPasswordRequest.getEmail());
         emailSenderService.SendEmail(resetPasswordRequest.getEmail(),
@@ -41,6 +43,7 @@ public class ResetPasswordService {
 
 
     }
+    @Transactional
     public void saveEmailAndCodeinDB (ResetPasswordRequest resetPasswordRequest){
         resetpassword resetPass = new resetpassword();
         resetPass.setEmail(resetPasswordRequest.getEmail());
@@ -56,6 +59,11 @@ resetPasswordRepo.save(resetPass);
         resetpassword resetPassword = resetPasswordRepo.findByemail(email);
 
         return resetPassword.getCode().equals(userProvidedCode);
+
+
+    }
+    public void codeHandlingInDB (){
+
     }
 
     public Boolean updateUserPassword(String email, UserNewPasswordRequest userNewPasswordRequest) {
