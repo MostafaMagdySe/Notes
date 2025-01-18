@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailSenderService {
-    @Value("${email.service.address}")
+    @Value("${spring.mail.username}")
     private String your_email;
     private final JavaMailSender mailSender;
     public EmailSenderService (JavaMailSender mailSender){
