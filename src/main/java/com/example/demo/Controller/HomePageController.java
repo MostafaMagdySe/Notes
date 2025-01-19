@@ -37,11 +37,13 @@ public class HomePageController {
         return ResponseEntity.ok(userService.verify(loginrequest));
     }
     // this HomePage is only for logged in users via log in page
-@GetMapping ("/{PageNo}/{PageSize}")
-    public List<NotesContent> ViewAllNotes(@PathVariable int PageNo, @PathVariable int PageSize ){
+@GetMapping ("/")
+    public List<NotesContent> ViewAllNotes( @RequestParam(defaultValue = "1") int PageNo,
+                                            @RequestParam(defaultValue = "5") int PageSize ){
 
 
-return  notesServices.getAllNotes(PageNo,PageSize);
+
+return  notesServices.getAllNotes(PageNo-1,PageSize);
 
 
 
