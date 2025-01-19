@@ -1,6 +1,6 @@
 package com.example.demo.Services;
 
-import com.example.demo.DTO.ResetPasswordRequest;
+import com.example.demo.DTO.emailRequest;
 import com.example.demo.DTO.UserNewPasswordRequest;
 import com.example.demo.Entities.resetpassword;
 import com.example.demo.Entities.Users;
@@ -27,15 +27,15 @@ public class ResetPasswordService {
         this.resetPasswordRepo = resetPasswordRepo;
     }
 
-    public Boolean verifyEmail (ResetPasswordRequest resetPasswordRequest){
-        return userRepo.findByemail(resetPasswordRequest.getEmail()) != null;
+    public Boolean verifyEmail (emailRequest emailRequest){
+        return userRepo.findByemail(emailRequest.getEmail()) != null;
     }
 
     //@EventListener(ApplicationReadyEvent.class)
     @Transactional
-    public void sendmail(ResetPasswordRequest resetPasswordRequest){
-        resetpassword resetPassword = resetPasswordRepo.findByemail(resetPasswordRequest.getEmail());
-        emailSenderService.SendEmail(resetPasswordRequest.getEmail(),
+    public void sendmail(emailRequest emailRequest){
+        resetpassword resetPassword = resetPasswordRepo.findByemail(emailRequest.getEmail());
+        emailSenderService.SendEmail(emailRequest.getEmail(),
                 "Don't reply to this Message",
                 "you have Requested to reset Your password on our Notes Website.." +
                         " if you didn't ask for Resetting Password, ignore this Message," +
@@ -44,9 +44,9 @@ public class ResetPasswordService {
 
     }
     @Transactional
-    public void saveEmailAndCodeinDB (ResetPasswordRequest resetPasswordRequest){
+    public void saveEmailAndCodeinDB (emailRequest emailRequest){
         resetpassword resetPass = new resetpassword();
-        resetPass.setEmail(resetPasswordRequest.getEmail());
+        resetPass.setEmail(emailRequest.getEmail());
         resetPass.setCode(generateVerificationCode());
 resetPasswordRepo.save(resetPass);
     }

@@ -1,6 +1,7 @@
 package com.example.demo.Services;
 
 import com.example.demo.DTO.CreateUserRequest;
+import com.example.demo.DTO.UsernameRequest;
 import com.example.demo.DTO.loginRequest;
 import com.example.demo.Entities.Users;
 import com.example.demo.Repository.UserRepo;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Data
-public class CreateUserService {
+public class UserService {
 
 private final JWTService jwtService;
 private final AuthenticationManager authenticationManager;
@@ -24,7 +25,7 @@ private final AuthenticationManager authenticationManager;
 
      BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
-    public CreateUserService(UserRepo userRepo, JWTService jwtService, AuthenticationManager authenticationManager)
+    public UserService(UserRepo userRepo, JWTService jwtService, AuthenticationManager authenticationManager)
     {
     this.userRepo= userRepo;
     this.jwtService=jwtService;
@@ -52,6 +53,15 @@ private final AuthenticationManager authenticationManager;
          catch (Exception e) {
             throw new BadCredentialsException("Invalid username or password");
         }
+    }
+    @Transactional
+    public void updateUserProfile (UsernameRequest username){
+ Users user;
+       user= userRepo.findByusername(username.getUsername());
+user.setEmail(username.getNewEmail());
+user.setUsername(username.getNewUsername());
+user.setPhone(username.getPhone());
+userRepo.save(user);
     }
 
 

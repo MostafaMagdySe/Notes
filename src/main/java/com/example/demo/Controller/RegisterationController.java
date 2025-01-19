@@ -1,7 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.DTO.CreateUserRequest;
-import com.example.demo.Services.CreateUserService;
+import com.example.demo.Services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RegisterationController {
 
-   private final CreateUserService createUserService;
+   private final UserService userService;
 
-   public RegisterationController(CreateUserService createUserService) {
-        this.createUserService=createUserService;
+   public RegisterationController(UserService userService) {
+        this.userService = userService;
    }
 
 
@@ -24,7 +24,7 @@ public class RegisterationController {
     public ResponseEntity CreateUsers (@RequestBody CreateUserRequest createUserRequest){
 
 
-        createUserService.CreateUser(createUserRequest);
+        userService.CreateUser(createUserRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

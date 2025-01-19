@@ -1,6 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DTO.ResetPasswordRequest;
+import com.example.demo.DTO.emailRequest;
 import com.example.demo.DTO.UserNewPasswordRequest;
 import com.example.demo.DTO.UserProvidedcodeRequest;
 import com.example.demo.Services.ResetPasswordService;
@@ -20,10 +20,10 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("/ResetPassword")
-    public ResponseEntity ResetPassword(@RequestBody ResetPasswordRequest resetPasswordRequest) {
-        if (resetPasswordService.verifyEmail(resetPasswordRequest)) {
-            resetPasswordService.saveEmailAndCodeinDB(resetPasswordRequest);
-            resetPasswordService.sendmail(resetPasswordRequest);
+    public ResponseEntity ResetPassword(@RequestBody emailRequest emailRequest) {
+        if (resetPasswordService.verifyEmail(emailRequest)) {
+            resetPasswordService.saveEmailAndCodeinDB(emailRequest);
+            resetPasswordService.sendmail(emailRequest);
             return new ResponseEntity<>(HttpStatus.FOUND);
         }
         else
