@@ -28,3 +28,17 @@ clone the project to your local repository or just download the project to your 
 
 3- Now you are ready to run the project and also make sure that Postgres is running.
 
+## QuickStart
+1-as the project uses JWt, you need to get a token to start.. this is only possible by logging in.. so, to get started you need to create an account.. to hit the register endpoint go to register endpoint "/register" (eg: http://localhost:8080/register)
+
+2- you can register with username and password only.. you can add phone and email as well or you can add them later it's totally up to you.
+
+3- after registering, hit the login api (eg: http://localhost:8080/login) after providing valid credentials you will get a response containing a token you can use this token to access the other endpoints.
+
+4- now, as you are a new user, you need to create your first note.. you can do that by hitting "/note" endpoint (eg:http://localhost:8080/note) and send the "content" you want.
+
+5- now, you have to options to see your notes, you can view a specific note by hitting the note with its id (eg: http://localhost:8080/note/1) or you can simply view all notes you have made by going to the homepage(eg: http://localhost:8080/)
+
+6- if you don't know what to write in your notes and want some ideas, you can get inspiration by visting an integerated endpoint that will provide you with a random quote for an anime character and it also tells you the anime name and the name of the character if you are intersted in the quote itself.. to get a random quote you can visit "/quote" endpoint, (eg: http://localhost:8080/quote)
+
+7- it's also possible to save your note and continue writing later or even delete the note if you want.. by hitting the same endpoint but you need to change the Http Request type.. instead of post request use "patch" or "delete" for the same endpoint, (eg: http://localhost:8080/note/1) 
